@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{98FD59EE-84EB-4A82-8F22-59058AB88AE2}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{618623CD-14C2-47B0-BC04-9FC293DA35D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ECommerce.ProductCatalog</RootNamespace>
-    <AssemblyName>ECommerce.ProductCatalog</AssemblyName>
+    <RootNamespace>UserActor.Interfaces</RootNamespace>
+    <AssemblyName>UserActor.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,13 +33,10 @@
     <PlatformTarget>x64</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <AdditionalFileItemNames>$(AdditionalFileItemNames);None</AdditionalFileItemNames>
-  </PropertyGroup>
-  <PropertyGroup>
-    <IsServiceFabricServiceProject>true</IsServiceFabricServiceProject>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ServiceFabric.Actors, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <HintPath>..\..\..\..\..\NugetPackages\Microsoft.ServiceFabric.Actors.3.1.274\lib\net45\Microsoft.ServiceFabric.Actors.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ServiceFabric.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
       <HintPath>..\..\..\..\..\NugetPackages\Microsoft.ServiceFabric.Data.3.1.274\lib\net45\Microsoft.ServiceFabric.Data.dll</HintPath>
     </Reference>
@@ -93,31 +91,18 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProductCatalog.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="ServiceEventSource.cs" />
-    <Compile Include="ServiceFabricProductRepository.cs" />
+    <Compile Include="IUserActor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PackageRoot\Config\Settings.xml" />
-    <None Include="PackageRoot\ServiceManifest.xml" />
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ECommerce.Domain\ECommerce.ProductCatalog.Model.csproj">
-      <Project>{6D74562B-D03E-48EF-B9F0-78925FA406B3}</Project>
-      <Name>ECommerce.ProductCatalog.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Import Project="..\..\..\..\..\NugetPackages\Microsoft.ServiceFabric.Actors.3.1.274\build\net45\Microsoft.ServiceFabric.Actors.targets" Condition="Exists('..\..\..\..\..\NugetPackages\Microsoft.ServiceFabric.Actors.3.1.274\build\net45\Microsoft.ServiceFabric.Actors.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\..\NugetPackages\Microsoft.ServiceFabric.Actors.3.1.274\build\net45\Microsoft.ServiceFabric.Actors.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\..\NugetPackages\Microsoft.ServiceFabric.Actors.3.1.274\build\net45\Microsoft.ServiceFabric.Actors.targets'))" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
